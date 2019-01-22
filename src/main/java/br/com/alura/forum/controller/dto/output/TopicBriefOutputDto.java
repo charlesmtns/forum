@@ -3,9 +3,7 @@ package br.com.alura.forum.controller.dto.output;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
-import java.util.stream.Collectors;
-
+import org.springframework.data.domain.Page;
 import br.com.alura.forum.model.topic.domain.Topic;
 import br.com.alura.forum.model.topic.domain.TopicStatus;
 
@@ -39,9 +37,9 @@ public class TopicBriefOutputDto {
 		return Duration.between(lastUpdate, Instant.now()).get(ChronoUnit.SECONDS);
 	}
 
-	public static List<TopicBriefOutputDto> listFromTopics(List<Topic> topics) {
+	public static Page<TopicBriefOutputDto> listFromTopics(Page<Topic> topics) {
 
-		return topics.stream().map(TopicBriefOutputDto::new).collect(Collectors.toList());
+		return topics.map(TopicBriefOutputDto::new);
 	}
 
 	public Long getId() {
